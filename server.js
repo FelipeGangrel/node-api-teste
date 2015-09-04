@@ -1,4 +1,4 @@
-// BASE SETUP
+/// BASE SETUP
 // =============================================================================
 
 // CALL THE PACKAGES -----------------------------------------------------------
@@ -34,11 +34,9 @@ app.use(function(req, res, next){
 app.use(morgan('dev'));
 
 // database hosted on mongolab mongodb://username:password@ds042888...
-//mongoose.connect('mongodb://admin:admin@ds042888.mongolab.com:42888/db_teste');
+mongoose.connect('mongodb://admin:admin@ds042888.mongolab.com:42888/db_teste');
 
-mongoose.connect('mongodb://foco:foco@node65530-foco001.jelasticlw.com.br/local');
-
-//mongoose.connect('mongodb://admin:fi7lQ96SjD@node65447-env-2250019.jelasticlw.com.br/teste');
+//mongoose.connect('mongodb://foco:foco@node65530-foco001.jelasticlw.com.br/local');
 
 // ROUTES FOR OUR API
 // =============================================================================
