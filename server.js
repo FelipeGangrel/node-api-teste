@@ -34,7 +34,9 @@ app.use(function(req, res, next){
 app.use(morgan('dev'));
 
 // database hosted on mongolab mongodb://username:password@ds042888...
-mongoose.connect('mongodb://admin:admin@ds042888.mongolab.com:42888/db_teste');
+//mongoose.connect('mongodb://admin:admin@ds042888.mongolab.com:42888/db_teste');
+
+mongoose.connect('mongodb://admin:hAQlSdF3gKr9@'.$OPENSHIFT_MONGODB_DB_HOST.':'.$OPENSHIFT_MONGODB_DB_PORT.'/app1');
 
 //mongoose.connect('mongodb://admin:GzPBONANYt@node65530-foco001.jelasticlw.com.br/teste');
 
