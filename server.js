@@ -1,4 +1,4 @@
-/// BASE SETUP
+// BASE SETUP
 // =============================================================================
 
 // CALL THE PACKAGES -----------------------------------------------------------
@@ -36,7 +36,7 @@ app.use(morgan('dev'));
 // database hosted on mongolab mongodb://username:password@ds042888...
 mongoose.connect('mongodb://admin:admin@ds042888.mongolab.com:42888/db_teste');
 
-//mongoose.connect('mongodb://foco:foco@node65530-foco001.jelasticlw.com.br/local');
+//mongoose.connect('mongodb://admin:GzPBONANYt@node65530-foco001.jelasticlw.com.br/teste');
 
 // ROUTES FOR OUR API
 // =============================================================================
@@ -91,7 +91,36 @@ apiRouter.post('/authenticate', function(req, res){
     });
 });
 
+// middleware to use for all requests
+apiRouter.use(function(req, res, next){
+  // do logging
+  console.log('Alguém chegou em nosso APP');
+  // check header or url parameters or POST parameters for token
+  var token = req.body.token || req.param('token') || req.headers['x-access-token'];
+  //decode token
+  if (token) {
+    // verifies secret and expiration
+    jwt.verify(token, superSecret, function(err, decoded){
+      if (err){ return res.status(403).send({
+          success: false,
+          message: 'Falha ao autenticar token.'
+        });
+      }else{
+        // if everything is good, save to request for use in other routes
+        req.decoded = decoded;
+        next();
+      }
+    });
+  }else{
+    // if there is no token
+    // return an HTTP response o 403 (Access Forbidden) and an error message
+    return res.status(403).send({
+      success: false,
+      message: 'Nenhum token foi fornecido.'
+    });
+  }
 
+});
 
 /* test router to make sure everything is working when accessing at GET
 http://localhost:8080/api */
